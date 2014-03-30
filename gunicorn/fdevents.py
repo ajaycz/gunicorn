@@ -43,6 +43,7 @@ class PollsterBase(object):
 
         return: (fd, mode)
         """
+        raise NotImplementedError
 
     def wait(self, nsec):
         """ return all events raised in the pollster when calling the
@@ -50,6 +51,11 @@ class PollsterBase(object):
 
         return: [(fd, mode), ....]
         """
+        raise NotImplementedError
+
+    def close(self):
+        """ close the pollster """
+        raise NotImplementedError
 
 
 class SelectPollster(PollsterBase):
