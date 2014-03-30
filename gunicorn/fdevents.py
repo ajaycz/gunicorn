@@ -9,7 +9,7 @@ allows you to register an fd, and retrieve events on it. """
 
 import select
 
-from .util import fd_, closeonexec
+from .util import fd_, close_on_exec
 
 
 class PollsterBase(object):
@@ -122,7 +122,7 @@ if hasattr(selec, 'kqueue')
 
         def __init__(self):
             self.kq = select.kqueue()
-            closeonexec(self.kq.fileno())
+            close_on_exec(self.kq.fileno())
             self.events = []
 
         def addfd(self, fd, mode, repeat=True):
@@ -194,7 +194,7 @@ if hasattr(select, "epoll"):
 
         def __init__(self):
             self.poll = select.epoll()
-            closeonexec(self.poll.fileno())
+            close_on_exec(self.poll.fileno())
             self.fds = {}
             self.events = []
 
