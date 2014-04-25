@@ -28,6 +28,7 @@ class AsyncWorker(base.Worker):
 
     def handle(self, listener, client, addr):
         req = None
+        self.log.debug("NGDS: async handle")
         try:
             parser = http.RequestParser(self.cfg, client)
             try:
@@ -50,6 +51,7 @@ class AsyncWorker(base.Worker):
             except ssl.SSLError:
                 raise  # pass to next try-except level
             except socket.error:
+                self.log.debug("NGDS: socket error")
                 raise  # pass to next try-except level
             except Exception as e:
                 self.handle_error(req, client, addr, e)
@@ -75,6 +77,7 @@ class AsyncWorker(base.Worker):
 
     def handle_request(self, listener, req, sock, addr):
         request_start = datetime.now()
+        self.log.debug("NGDS: async handle_request")
         environ = {}
         resp = None
         try:

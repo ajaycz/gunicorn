@@ -54,8 +54,10 @@ def paste_config(gconfig, config_url, relative_to, global_conf=None):
 
 
 def load_pasteapp(config_url, relative_to, global_conf=None):
-    return loadapp(config_url, relative_to=relative_to,
+    sys.stderr.write("\nNGDS - pasterapp load_pasteapp: %s\n" % str(global_conf))
+    app = loadapp(config_url, relative_to=relative_to,
             global_conf=global_conf)
+    return app
 
 class PasterBaseApplication(Application):
     gcfg = None
@@ -155,7 +157,7 @@ class PasterServerApplication(PasterBaseApplication):
         # chdir to the configured path before loading,
         # default is the current dir
         os.chdir(self.cfg.chdir)
-
+        sys.stderr.write("\nNGDS - pasterapp PasterServerApplication load: %s\n" % str())
         return self.app
 
 

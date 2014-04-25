@@ -53,9 +53,11 @@ class WSGIApplication(Application):
 
         # load the paste app
         from .pasterapp import load_pasteapp
+        sys.stderr.write("\nwsgiapp load_pasteapp:")
         return load_pasteapp(self.cfgurl, self.relpath, global_conf=None)
 
     def load(self):
+        sys.stderr.write("\nwsgiapp load:")
         if self.cfg.paste is not None:
             return self.load_pasteapp()
         else:

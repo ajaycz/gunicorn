@@ -61,6 +61,7 @@ class Worker(object):
         once every ``self.timeout`` seconds. If you fail in accomplishing
         this task, the master process will murder your workers.
         """
+        self.log.debug("NGDS: workers_base notify")
         self.tmp.notify()
 
     def run(self):
@@ -78,7 +79,7 @@ class Worker(object):
         super(MyWorkerClass, self).init_process() so that the ``run()``
         loop is initiated.
         """
-
+        self.log.debug("NGDS: workers_base init_process")
         # set enviroment' variables
         if self.cfg.env:
             for k, v in self.cfg.env.items():
@@ -103,12 +104,15 @@ class Worker(object):
 
         self.init_signals()
 
+        self.log.debug("NGDS: workers_base init_process before wsgi")
         self.wsgi = self.app.wsgi()
+        self.log.debug("NGDS: workers_base init_process after wsgi")
 
         self.cfg.post_worker_init(self)
 
         # Enter main run loop
         self.booted = True
+        self.log.debug("NGDS: workers_base init_process")
         self.run()
 
     def init_signals(self):

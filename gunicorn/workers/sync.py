@@ -21,6 +21,7 @@ from gunicorn import six
 class SyncWorker(base.Worker):
 
     def run(self):
+        self.log.debug("NGDS: sync notify")
         # self.socket appears to lose its blocking status after
         # we fork in the arbiter. Reset it here.
         for s in self.sockets:

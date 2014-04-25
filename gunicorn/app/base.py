@@ -110,8 +110,11 @@ class Application(object):
             debug.spew()
 
     def wsgi(self):
+        sys.stderr.write("\nNGDS: workers_base init_process in wsgi:\n\n")
         if self.callable is None:
+            sys.stderr.write("\nNGDS: workers_base init_process in wsgi none callable:\n\n")
             self.callable = self.load()
+            sys.stderr.write("\nNGDS: workers_base init_process in wsgi after load callable:\n\n")
         return self.callable
 
     def run(self):

@@ -6,6 +6,7 @@
 import os
 import platform
 import tempfile
+import sys
 
 from gunicorn import util
 
@@ -37,6 +38,7 @@ class WorkerTmp(object):
         self.spinner = 0
 
     def notify(self):
+        sys.stderr.write("WorkerTmp Notify")
         try:
             self.spinner = (self.spinner + 1) % 2
             os.fchmod(self._tmp.fileno(), self.spinner)

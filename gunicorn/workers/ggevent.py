@@ -73,6 +73,7 @@ class GeventWorker(AsyncWorker):
         patch_sendfile()
 
     def notify(self):
+        self.log.debug("NGDS: ggevent notify")
         super(GeventWorker, self).notify()
         if self.ppid != os.getppid():
             self.log.info("Parent changed, shutting down: %s", self)
@@ -82,6 +83,7 @@ class GeventWorker(AsyncWorker):
         return gevent.Timeout(self.cfg.keepalive, False)
 
     def run(self):
+        self.log.debug("NGDS: ggevent run")
         servers = []
         ssl_args = {}
 
